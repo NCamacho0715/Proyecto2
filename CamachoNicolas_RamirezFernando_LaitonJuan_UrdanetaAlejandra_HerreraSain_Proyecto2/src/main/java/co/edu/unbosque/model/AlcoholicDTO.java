@@ -15,6 +15,19 @@ public class AlcoholicDTO extends PersonDTO {
 		this.nickname = nickname;
 	}
 
+	public AlcoholicDTO(int id, String username, String password, String name, Date birthDate, int identityDoc,
+			String birthCity) {
+		super(id, username, password, name, birthDate, identityDoc, birthCity);
+		// TODO Auto-generated constructor stub
+	}
+	public AlcoholicDTO(int id, String username, String password, String name, Date birthDate, int identityDoc,
+			String birthCity, int participatedSessions, String nickname) {
+		super(id, username, password, name, birthDate, identityDoc, birthCity);
+		this.participatedSessions = participatedSessions;
+		this.nickname = nickname;
+	}
+
+
 	public int getParticipatedSessions() {
 		return participatedSessions;
 	}
