@@ -14,6 +14,18 @@ public class ServicePersonDTO extends PersonDTO {
 		this.salary = salary;
 		this.cleanedSessions = cleanedSessions;
 	}
+	public ServicePersonDTO(int id, String username, String password, String name, Date birthDate, int identityDoc,
+			String birthCity) {
+		super(id, username, password, name, birthDate, identityDoc, birthCity);
+		// TODO Auto-generated constructor stub
+	}
+	public ServicePersonDTO(int id, String username, String password, String name, Date birthDate, int identityDoc,
+			String birthCity, int salary, int cleanedSessions) {
+		super(id, username, password, name, birthDate, identityDoc, birthCity);
+		this.salary = salary;
+		this.cleanedSessions = cleanedSessions;
+	}
+
 
 	public int getSalary() {
 		return salary;

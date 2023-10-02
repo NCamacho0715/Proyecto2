@@ -20,6 +20,19 @@ public class PsychologistDTO extends PersonDTO {
 		this.supportedSessions = supportedSessions;
 		this.salary = salary;
 	}
+public PsychologistDTO(int id, String username, String password, String name, Date birthDate, int identityDoc,
+			String birthCity) {
+		super(id, username, password, name, birthDate, identityDoc, birthCity);
+		// TODO Auto-generated constructor stub
+	}
+	public PsychologistDTO(int id, String username, String password, String name, Date birthDate, int identityDoc,
+			String birthCity, Date graduationDate, int serviceDays, int supportedSessions, int salary) {
+		super(id, username, password, name, birthDate, identityDoc, birthCity);
+		this.graduationDate = graduationDate;
+		this.serviceDays = serviceDays;
+		this.supportedSessions = supportedSessions;
+		this.salary = salary;
+	}
 
 	public Date getGraduationDate() {
 		return graduationDate;
