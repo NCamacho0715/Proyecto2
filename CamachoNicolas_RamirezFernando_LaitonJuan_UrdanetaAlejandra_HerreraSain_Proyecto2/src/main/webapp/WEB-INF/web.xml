@@ -9,4 +9,14 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <servlet>
+		<description>Servlet for login validation</description>
+		<display-name>AlcoholicControllerServlet</display-name>
+		<servlet-name>AlcoholicControllerServlet</servlet-name>
+		<servlet-class>co.edu.unbosque.controller.AlcoholicControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AlcoholicControllerServlet</servlet-name>
+		<url-pattern>/alcoholiccontrollerservlet</url-pattern>
+	</servlet-mapping>
 </web-app>
