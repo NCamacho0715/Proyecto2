@@ -1,5 +1,7 @@
 package co.edu.unbosque.model;
 
+import java.sql.Date;
+
 public class ServicePersonDTO extends PersonDTO {
 
 	private int salary;

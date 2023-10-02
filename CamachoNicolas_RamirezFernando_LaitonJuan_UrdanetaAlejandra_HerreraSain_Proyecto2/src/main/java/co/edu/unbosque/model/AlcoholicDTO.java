@@ -1,5 +1,7 @@
 package co.edu.unbosque.model;
 
+import java.sql.Date;
+
 public class AlcoholicDTO extends PersonDTO {
 
 	private int participatedSessions;

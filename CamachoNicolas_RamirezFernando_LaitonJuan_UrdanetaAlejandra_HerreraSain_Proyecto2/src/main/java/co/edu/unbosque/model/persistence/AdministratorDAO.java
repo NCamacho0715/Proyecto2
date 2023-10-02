@@ -5,26 +5,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import co.edu.unbosque.controller.DBconnection;
-import co.edu.unbosque.model.AlcoholicDTO;
-import co.edu.unbosque.util.AlcoholicCRUD;
+import co.edu.unbosque.model.AdministratorDTO;
+import co.edu.unbosque.util.AdministratorCRUD;
 
-public class AlcoholicDAO implements AlcoholicCRUD {
+public class AdministratorDAO implements AdministratorCRUD {
 
-	private ArrayList<AlcoholicDTO> alcoholicList;
+	private ArrayList<AdministratorDTO> administratorList;
 	private DBconnection dbcon;
 
-	public AlcoholicDAO() {
-		alcoholicList = new ArrayList();
+	public AdministratorDAO() {
+		administratorList = new ArrayList();
 		dbcon = new DBconnection();
 	}
 
 	@Override
 	public void create(Object o) {
 		// OBJECTS SE PUEDE GUARDAR CUALQUIER TIPO DE CLASE
-		AlcoholicDTO temporal = (AlcoholicDTO) o;
+		AdministratorDTO temporal = (AdministratorDTO) o;
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO alcoholico VALUES(?,?,?,?,?,?,?,?,?);"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO administrador VALUES(?,?,?,?,?,?,?);"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, temporal.getId());
 			dbcon.getPreparedStatement().setString(2, temporal.getUsername());
@@ -33,8 +33,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 			dbcon.getPreparedStatement().setDate(5, temporal.getBirthDate());
 			dbcon.getPreparedStatement().setInt(6, temporal.getIdentityDoc());
 			dbcon.getPreparedStatement().setString(7, temporal.getBirthCity());
-			dbcon.getPreparedStatement().setInt(8, temporal.getParticipatedSessions());
-			dbcon.getPreparedStatement().setString(9, temporal.getNickname());
+
 
 
 			dbcon.getPreparedStatement().executeUpdate();
@@ -42,27 +41,29 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		alcoholicList.add((AlcoholicDTO) o);
+		administratorList.add((AdministratorDTO) o);
+
 
 	}
 
 	@Override
 	public void create(String... args) {
 
-		AlcoholicDTO newUser = new AlcoholicDTO(Integer.parseInt(args[0]), args[1], args[2], args[3], 
-				Date.valueOf(args[4]), Integer.parseInt(args[5]), args[6], Integer.parseInt(args[7]), args[8]);
+		AdministratorDTO newUser = new AdministratorDTO(Integer.parseInt(args[0]), args[1], args[2], args[3], 
+				Date.valueOf(args[4]), Integer.parseInt(args[5]), args[6]);
 		dbcon.initConnection();
-		alcoholicList.add(newUser);
+		administratorList.add(newUser);
+
 	}
 
 	@Override
 	public String readAll() {
 		String salida = "";
-		alcoholicList.clear();
+		administratorList.clear();
 		dbcon.initConnection();
 		try {
 			dbcon.setStatement(dbcon.getConnect().createStatement());
-			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM alcoholico;"));
+			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM administrador;"));
 			while (dbcon.getResultSet().next()) {
 				int id = dbcon.getResultSet().getInt("id");
 				String username = dbcon.getResultSet().getString("username");
@@ -71,10 +72,8 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 				Date birthDate = dbcon.getResultSet().getDate("fechanacimiento");
 				int doc = dbcon.getResultSet().getInt("cedula");
 				String birthCity = dbcon.getResultSet().getString("ciudadnacimiento");
-				int participatedSessions = dbcon.getResultSet().getInt("sesionesparticipadas");
-				String nickname = dbcon.getResultSet().getString("apodo");
 				
-				alcoholicList.add(new AlcoholicDTO(id, username, password, name, birthDate, doc, birthCity, participatedSessions, nickname));
+				administratorList.add(new AdministratorDTO(id, username, password, name, birthDate, doc, birthCity));
 
 			}
 			dbcon.close();
@@ -83,7 +82,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (AlcoholicDTO user : alcoholicList) {
+		for (AdministratorDTO user : administratorList) {
 			salida += user.toString();
 
 		}
@@ -93,7 +92,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 	@Override
 	public String readByName(String name) {
 		String salida = "";
-		for (AlcoholicDTO user : alcoholicList) {
+		for (AdministratorDTO user : administratorList) {
 			if (user.getName().equals(name)) {
 				salida += user.toString();
 			}
@@ -107,7 +106,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 		dbcon.initConnection();
 		try {
 			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement(
-					"UPDATE alcoholico SET id =?,username = ?, password = ?, name = ?, fechanacimiento = ?, cedula = ?, ciudadnacimiento = ?, sesionesparticipadas = ?, apodo = ? WHERE id=?;"));
+					"UPDATE administrador SET id =?,username = ?, password = ?, name = ?, fechanacimiento = ?, cedula = ?, ciudadnacimiento = ? WHERE id=?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().setString(2, args[0]);
@@ -116,24 +115,21 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 			dbcon.getPreparedStatement().setDate(5,Date.valueOf(args[3]));
 			dbcon.getPreparedStatement().setInt(6,Integer.parseInt( args[4]));
 			dbcon.getPreparedStatement().setString(7, args[5]);
-			dbcon.getPreparedStatement().setInt(8,Integer.parseInt(args[6]));
-			dbcon.getPreparedStatement().setString(9, args[7]);
 			dbcon.getPreparedStatement().executeUpdate();
 			dbcon.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		for (int i = 0; i < alcoholicList.size(); i++) {
-			if (alcoholicList.get(i).getId() == id) {
-				alcoholicList.get(i).setUsername(args[0]);
-				alcoholicList.get(i).setPassword(args[1]);
-				alcoholicList.get(i).setName(args[2]);
-				alcoholicList.get(i).setBirthDate(Date.valueOf(args[3]));
-				alcoholicList.get(i).setIdentityDoc(Integer.parseInt( args[4]));
-				alcoholicList.get(i).setBirthCity(args[5]);
-				alcoholicList.get(i).setParticipatedSessions(Integer.parseInt( args[6]));
-				alcoholicList.get(i).setNickname(args[7]);
+		for (int i = 0; i < administratorList.size(); i++) {
+			if (administratorList.get(i).getId() == id) {
+				administratorList.get(i).setUsername(args[0]);
+				administratorList.get(i).setPassword(args[1]);
+				administratorList.get(i).setName(args[2]);
+				administratorList.get(i).setBirthDate(Date.valueOf(args[3]));
+				administratorList.get(i).setIdentityDoc(Integer.parseInt( args[4]));
+				administratorList.get(i).setBirthCity(args[5]);
+
 				return 0;
 			}
 		}
@@ -146,7 +142,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 	public int deleteById(int id) {
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM alcoholico WHERE id =?;"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM administrador WHERE id =?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().executeUpdate();
@@ -154,34 +150,21 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		for (int i = 0; i < alcoholicList.size(); i++) {
-			if (alcoholicList.get(i).getId() == id) {
-				alcoholicList.remove(i);
+		for (int i = 0; i < administratorList.size(); i++) {
+			if (administratorList.get(i).getId() == id) {
+				administratorList.remove(i);
 				return 0;
 			}
 		}
 		return 1;
 	}
-	
-	public boolean validate(String username, String password) {
-		for (AlcoholicDTO a : alcoholicList) {
-			if (a.getUsername().equals(username)) {
-				if (a.getPassword().equals(password)) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		}
-		return false;
+
+	public ArrayList<AdministratorDTO> getAdministratorList() {
+		return administratorList;
 	}
 
-	public ArrayList<AlcoholicDTO> getAlcoholicList() {
-		return alcoholicList;
-	}
-
-	public void setAlcoholicList(ArrayList<AlcoholicDTO> alcoholicList) {
-		this.alcoholicList = alcoholicList;
+	public void setAdministratorList(ArrayList<AdministratorDTO> administratorList) {
+		this.administratorList = administratorList;
 	}
 
 	public DBconnection getDbcon() {
