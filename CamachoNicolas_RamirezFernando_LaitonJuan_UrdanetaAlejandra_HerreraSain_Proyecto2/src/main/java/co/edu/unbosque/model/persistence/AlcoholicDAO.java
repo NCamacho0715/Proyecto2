@@ -24,7 +24,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 		AlcoholicDTO temporal = (AlcoholicDTO) o;
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO usuario VALUES(?,?,?,?);"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO alcoholico VALUES(?,?,?,?,?,?,?,?,?);"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, temporal.getId());
 			dbcon.getPreparedStatement().setString(2, temporal.getUsername());
@@ -62,17 +62,17 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 		dbcon.initConnection();
 		try {
 			dbcon.setStatement(dbcon.getConnect().createStatement());
-			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM usuario;"));
+			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM alcoholico;"));
 			while (dbcon.getResultSet().next()) {
 				int id = dbcon.getResultSet().getInt("id");
-				String username = dbcon.getResultSet().getString("nombreUsuario");
-				String password = dbcon.getResultSet().getString("contrasena");
-				String name = dbcon.getResultSet().getString("nombre");
-				Date birthDate = dbcon.getResultSet().getDate("fechaNacimiento");
-				int doc = dbcon.getResultSet().getInt("documentoIdentidad");
-				String birthCity = dbcon.getResultSet().getString("ciudadNacimiento");
-				int participatedSessions = dbcon.getResultSet().getInt("sesionesParticipadas");
-				String nickname = dbcon.getResultSet().getString("nickname");
+				String username = dbcon.getResultSet().getString("username");
+				String password = dbcon.getResultSet().getString("password");
+				String name = dbcon.getResultSet().getString("name");
+				Date birthDate = dbcon.getResultSet().getDate("fechanacimiento");
+				int doc = dbcon.getResultSet().getInt("cedula");
+				String birthCity = dbcon.getResultSet().getString("ciudadnacimiento");
+				int participatedSessions = dbcon.getResultSet().getInt("sesionesparticipadas");
+				String nickname = dbcon.getResultSet().getString("apodo");
 				
 				alcoholicList.add(new AlcoholicDTO(id, username, password, name, birthDate, doc, birthCity, participatedSessions, nickname));
 
@@ -107,7 +107,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 		dbcon.initConnection();
 		try {
 			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement(
-					"UPDATE usuario SET id =?,username = ?, password = ?, name = ?, birthDate = ?, identityDoc = ?, birthCity = ?, participatedSessions = ?, nickname = ? WHERE id=?;"));
+					"UPDATE alcoholico SET id =?,username = ?, password = ?, name = ?, fechanacimiento = ?, cedula = ?, ciudadnacimiento = ?, sesionesparticipadas = ?, apodo = ? WHERE id=?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().setString(2, args[0]);
@@ -146,7 +146,7 @@ public class AlcoholicDAO implements AlcoholicCRUD {
 	public int deleteById(int id) {
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM usuario WHERE id =?;"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM alcoholico WHERE id =?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().executeUpdate();
