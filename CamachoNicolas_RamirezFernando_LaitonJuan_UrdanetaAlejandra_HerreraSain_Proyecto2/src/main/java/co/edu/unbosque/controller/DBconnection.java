@@ -12,11 +12,11 @@ public class DBconnection {
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	private final String IP = "127.0.0.1";
+	private final String IP = "35.239.57.35";
 	private final String PORT = "3306";
-	private final String DATABASE = "GomezPaula";
-	private final String USERNAME = "root";
-	private final String PASSWORD = "Lakshartnia123";
+	private final String DATABASE = "ramirezFernando";
+	private final String USERNAME = "programacion2diegorodriguezcloud";
+	private final String PASSWORD = "progaramacion2";
 
 	public DBconnection() {
 		// TODO Auto-generated constructor stub
