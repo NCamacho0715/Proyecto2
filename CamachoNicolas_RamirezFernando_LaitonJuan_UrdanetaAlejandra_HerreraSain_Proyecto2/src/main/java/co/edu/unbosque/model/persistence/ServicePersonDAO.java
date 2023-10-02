@@ -25,7 +25,7 @@ public class ServicePersonDAO implements ServicePersonCRUD{
 		ServicePersonDTO temporal = (ServicePersonDTO) o;
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO usuario VALUES(?,?,?,?);"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO personaservicio VALUES(?,?,?,?,?,?,?);"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, temporal.getId());
 			dbcon.getPreparedStatement().setString(2, temporal.getUsername());
@@ -65,17 +65,17 @@ public class ServicePersonDAO implements ServicePersonCRUD{
 		dbcon.initConnection();
 		try {
 			dbcon.setStatement(dbcon.getConnect().createStatement());
-			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM usuario;"));
+			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM personaservicio;"));
 			while (dbcon.getResultSet().next()) {
 				int id = dbcon.getResultSet().getInt("id");
-				String username = dbcon.getResultSet().getString("nombreUsuario");
-				String password = dbcon.getResultSet().getString("contrasena");
-				String name = dbcon.getResultSet().getString("nombre");
-				Date birthDate = dbcon.getResultSet().getDate("fechaNacimiento");
-				int doc = dbcon.getResultSet().getInt("documentoIdentidad");
-				String birthCity = dbcon.getResultSet().getString("ciudadNacimiento");
+				String username = dbcon.getResultSet().getString("username");
+				String password = dbcon.getResultSet().getString("password");
+				String name = dbcon.getResultSet().getString("name");
+				Date birthDate = dbcon.getResultSet().getDate("fechanacimiento");
+				int doc = dbcon.getResultSet().getInt("cedula");
+				String birthCity = dbcon.getResultSet().getString("ciudadnacimiento");
 				int salary = dbcon.getResultSet().getInt("salario");
-				int cleanedSessions = dbcon.getResultSet().getInt("sesionesLimpiadas");
+				int cleanedSessions = dbcon.getResultSet().getInt("sesioneslimpiadas");
 
 				
 				servicePersonList.add(new ServicePersonDTO(id, username, password, name, birthDate, doc, birthCity, salary, cleanedSessions));
@@ -111,7 +111,7 @@ public class ServicePersonDAO implements ServicePersonCRUD{
 		dbcon.initConnection();
 		try {
 			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement(
-					"UPDATE usuario SET id =?,username = ?, password = ?, name = ?, birthDate = ?, identityDoc = ?, birthCity = ?, salary = ?, cleanedSessions = ? WHERE id=?;"));
+					"UPDATE personaservicio SET id =?,username = ?, password = ?, name = ?, fechanacimiento = ?, cedula = ?, ciudadnacimiento = ?, sesioneslimpiadas = ?, apodo = ? WHERE id=?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().setString(2, args[0]);
@@ -151,7 +151,7 @@ public class ServicePersonDAO implements ServicePersonCRUD{
 	public int deleteById(int id) {
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM usuario WHERE id =?;"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM personaservicio WHERE id =?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().executeUpdate();

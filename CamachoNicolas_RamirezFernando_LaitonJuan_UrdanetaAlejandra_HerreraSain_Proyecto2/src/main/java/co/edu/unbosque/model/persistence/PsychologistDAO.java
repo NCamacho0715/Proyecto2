@@ -25,7 +25,7 @@ public class PsychologistDAO implements PsychologistCRUD{
 		PsychologistDTO temporal = (PsychologistDTO) o;
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO usuario VALUES(?,?,?,?);"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("INSERT INTO psicologo VALUES(?,?,?,?,?,?,?,?,?,?,?);"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, temporal.getId());
 			dbcon.getPreparedStatement().setString(2, temporal.getUsername());
@@ -67,17 +67,22 @@ public class PsychologistDAO implements PsychologistCRUD{
 		dbcon.initConnection();
 		try {
 			dbcon.setStatement(dbcon.getConnect().createStatement());
-			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM usuario;"));
+			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM psicologo;"));
 			while (dbcon.getResultSet().next()) {
 				int id = dbcon.getResultSet().getInt("id");
-				String username = dbcon.getResultSet().getString("nombreUsuario");
-				String password = dbcon.getResultSet().getString("contrasena");
-				String name = dbcon.getResultSet().getString("nombre");
-				Date birthDate = dbcon.getResultSet().getDate("fechaNacimiento");
-				int doc = dbcon.getResultSet().getInt("documentoIdentidad");
-				String birthCity = dbcon.getResultSet().getString("ciudadNacimiento");
+				String username = dbcon.getResultSet().getString("username");
+				String password = dbcon.getResultSet().getString("password");
+				String name = dbcon.getResultSet().getString("name");
+				Date birthDate = dbcon.getResultSet().getDate("fechanacimiento");
+				int doc = dbcon.getResultSet().getInt("cedula");
+				String birthCity = dbcon.getResultSet().getString("ciudadnacimiento");
+				Date fechagraduacion = dbcon.getResultSet().getDate("fechagraduacion");
+				int diasservicio  = dbcon.getResultSet().getInt("diasservicio");
+				int sesionesapoyadas = dbcon.getResultSet().getInt("sesionesapoyadas");
+				int salario = dbcon.getResultSet().getInt("salario");
 
-				psychologistList.add(new PsychologistDTO(id, username, password, name, birthDate, doc, birthCity));
+
+				psychologistList.add(new PsychologistDTO(id, username, password, name, birthDate, doc, birthCity, fechagraduacion, diasservicio, sesionesapoyadas, salario));
 
 			}
 			dbcon.close();
@@ -110,7 +115,7 @@ public class PsychologistDAO implements PsychologistCRUD{
 		dbcon.initConnection();
 		try {
 			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement(
-					"UPDATE usuario SET id =?,username = ?, password = ?, name = ?, birthDate = ?, identityDoc = ?, birthCity = ?, graduationDate = ?, serviceDays = ?, supportedSessions = ?, salary = ? WHERE id=?;"));
+					"UPDATE alcoholico SET id =?,username = ?, password = ?, name = ?, fechanacimiento = ?, cedula = ?, ciudadnacimiento = ?, fechagraduacion = ?, diasservicio = ?, sesionesapoyadas = ?, salario = ? WHERE id=?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().setString(2, args[0]);
@@ -159,7 +164,7 @@ public class PsychologistDAO implements PsychologistCRUD{
 	public int deleteById(int id) {
 		dbcon.initConnection();
 		try {
-			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM usuario WHERE id =?;"));
+			dbcon.setPreparedStatement(dbcon.getConnect().prepareStatement("DELETE FROM psicologo WHERE id =?;"));
 			// SIGNOS DE PREGUNTA COMODINES, SE PUEDE PONER DATOS.
 			dbcon.getPreparedStatement().setInt(1, id);
 			dbcon.getPreparedStatement().executeUpdate();
