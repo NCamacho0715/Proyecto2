@@ -28,6 +28,7 @@ public class PersonDTO {
 		this.birthCity = birthCity;
 	}
 
+
 	public int getId() {
 		return id;
 	}
