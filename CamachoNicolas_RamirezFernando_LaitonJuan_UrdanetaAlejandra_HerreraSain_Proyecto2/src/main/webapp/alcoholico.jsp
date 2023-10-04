@@ -13,7 +13,7 @@
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<title>Alcholico</title>
+<title>Alcoholico</title>
 </head>
 <body>
   <div class="container mt-5">

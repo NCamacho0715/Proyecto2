@@ -29,7 +29,7 @@
       </div>
       <button type="submit" class="btn btn-primary">Ingresar</button>
     </form>
-      <a href="crearCuentaPsicologo.jsp">Crear una nueva cuenta</a>
+      <a href="crearCuentaPersonaServicio.jsp">Crear una nueva cuenta</a>
   </div>
 </body>
 

@@ -15,8 +15,8 @@ public class DBconnection {
 	private final String IP = "35.239.57.35";
 	private final String PORT = "3306";
 	private final String DATABASE = "ramirezFernando";
-	private final String USERNAME = "programacion2diegorodriguezcloud";
-	private final String PASSWORD = "progaramacion2";
+	private final String USERNAME = "root";
+	private final String PASSWORD = "programacion2";
 
 	public DBconnection() {
 		// TODO Auto-generated constructor stub

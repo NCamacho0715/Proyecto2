@@ -7,7 +7,7 @@
 
   </welcome-file-list>
   <servlet>
-		<description>Servlet for login validation</description>
+		<description>Servlet for alcoholic</description>
 		<display-name>AlcoholicControllerServlet</display-name>
 		<servlet-name>AlcoholicControllerServlet</servlet-name>
 		<servlet-class>co.edu.unbosque.controller.AlcoholicControllerServlet</servlet-class>
@@ -18,7 +18,7 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<description>Servlet for administrator</description>
+		<description>Servlet for choosing role</description>
 		<display-name>RoleControllerServlet</display-name>
 		<servlet-name>RoleControllerServlet</servlet-name>
 		<servlet-class>co.edu.unbosque.controller.RoleControllerServlet</servlet-class>
@@ -26,5 +26,16 @@
 	<servlet-mapping>
 		<servlet-name>RoleControllerServlet</servlet-name>
 		<url-pattern>/rolecontrollerservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>Servlet for administrator</description>
+		<display-name>AdministratorControllerServlet</display-name>
+		<servlet-name>AdministratorControllerServlet</servlet-name>
+		<servlet-class>co.edu.unbosque.controller.AdministratorControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdministratorControllerServlet</servlet-name>
+		<url-pattern>/administratorcontrollerservlet</url-pattern>
 	</servlet-mapping>
 </web-app>

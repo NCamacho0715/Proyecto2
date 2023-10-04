@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import co.edu.unbosque.controller.DBconnection;
 import co.edu.unbosque.model.AdministratorDTO;
+import co.edu.unbosque.model.AlcoholicDTO;
 import co.edu.unbosque.util.AdministratorCRUD;
 
 public class AdministratorDAO implements AdministratorCRUD {
@@ -16,6 +17,7 @@ public class AdministratorDAO implements AdministratorCRUD {
 	public AdministratorDAO() {
 		administratorList = new ArrayList();
 		dbcon = new DBconnection();
+		read();
 	}
 
 	@Override
@@ -157,6 +159,46 @@ public class AdministratorDAO implements AdministratorCRUD {
 			}
 		}
 		return 1;
+	}
+	
+	public boolean validate(String username, String password) {
+		for (AdministratorDTO a : administratorList) {
+			if (a.getUsername().equals(username)) {
+				if (a.getPassword().equals(password)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void read() {
+		administratorList.clear();
+		dbcon.initConnection();
+		try {
+			dbcon.setStatement(dbcon.getConnect().createStatement());
+			dbcon.setResultSet(dbcon.getStatement().executeQuery("SELECT * FROM administrador"));
+			while (dbcon.getResultSet().next()) {
+				int id = dbcon.getResultSet().getInt("id");
+				String username = dbcon.getResultSet().getString("username");
+				String password = dbcon.getResultSet().getString("password");
+				String name = dbcon.getResultSet().getString("name");
+				Date birthDate = dbcon.getResultSet().getDate("fechanacimiento");
+				int doc = dbcon.getResultSet().getInt("cedula");
+				String birthCity = dbcon.getResultSet().getString("ciudadnacimiento");
+				
+				administratorList.add(new AdministratorDTO(id, username, password, name, birthDate, doc, birthCity));
+
+			}
+			dbcon.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 
 	public ArrayList<AdministratorDTO> getAdministratorList() {
