@@ -2,15 +2,12 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
   <display-name>CamachoNicolas_RamirezFernando_LaitonJuan_UrdanetaAlejandra_HerreraSain_Proyecto2</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>default.htm</welcome-file>
+
   </welcome-file-list>
   <servlet>
-		<description>Servlet for login validation</description>
+		<description>Servlet for alcoholic</description>
 		<display-name>AlcoholicControllerServlet</display-name>
 		<servlet-name>AlcoholicControllerServlet</servlet-name>
 		<servlet-class>co.edu.unbosque.controller.AlcoholicControllerServlet</servlet-class>
@@ -18,5 +15,27 @@
 	<servlet-mapping>
 		<servlet-name>AlcoholicControllerServlet</servlet-name>
 		<url-pattern>/alcoholiccontrollerservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>Servlet for choosing role</description>
+		<display-name>RoleControllerServlet</display-name>
+		<servlet-name>RoleControllerServlet</servlet-name>
+		<servlet-class>co.edu.unbosque.controller.RoleControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RoleControllerServlet</servlet-name>
+		<url-pattern>/rolecontrollerservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description>Servlet for administrator</description>
+		<display-name>AdministratorControllerServlet</display-name>
+		<servlet-name>AdministratorControllerServlet</servlet-name>
+		<servlet-class>co.edu.unbosque.controller.AdministratorControllerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdministratorControllerServlet</servlet-name>
+		<url-pattern>/administratorcontrollerservlet</url-pattern>
 	</servlet-mapping>
 </web-app>
